@@ -4,6 +4,7 @@ import Layout from "./../../components/Layout/Layout";
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { BaseUrl } from "../../Baseurl";
 const Profile = () => {
   //context
   const [auth, setAuth] = useAuth();
@@ -27,16 +28,13 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put(
-        "https://e-commerce-web-api.vercel.app/api/v1/auth/profile",
-        {
-          name,
-          email,
-          password,
-          phone,
-          address,
-        }
-      );
+      const { data } = await axios.put(`${BaseUrl}/api/v1/auth/profile`, {
+        name,
+        email,
+        password,
+        phone,
+        address,
+      });
       if (data?.errro) {
         toast.error(data?.error);
       } else {

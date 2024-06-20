@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
+import { BaseUrl } from "../../Baseurl";
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,17 +18,14 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "https://e-commerce-web-api.vercel.app/api/v1/auth/register",
-        {
-          name,
-          email,
-          password,
-          phone,
-          address,
-          answer,
-        }
-      );
+      const res = await axios.post(`${BaseUrl}/api/v1/auth/register`, {
+        name,
+        email,
+        password,
+        phone,
+        address,
+        answer,
+      });
       if (res && res.data.success) {
         toast.success(res.data && res.data.message);
         navigate("/login");
@@ -36,7 +34,7 @@ const Register = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong");
+      toast.error(`Something went wrong${error}`);
     }
   };
 

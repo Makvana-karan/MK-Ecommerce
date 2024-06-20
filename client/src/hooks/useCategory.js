@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { BaseUrl } from "../Baseurl";
 
 export default function useCategory() {
   const [categories, setCategories] = useState([]);
@@ -8,7 +9,7 @@ export default function useCategory() {
   const getCategories = async () => {
     try {
       const { data } = await axios.get(
-        "https://e-commerce-web-api.vercel.app/api/v1/category/get-category"
+        `${BaseUrl}/api/v1/category/get-category`
       );
       setCategories(data?.category);
     } catch (error) {
